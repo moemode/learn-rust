@@ -45,3 +45,27 @@ fn makes_copy(some_integer: i32) { // some_integer comes into scope
 fn takes_and_gives_back(a_string: String) -> String {
 a_string  // a_string is returned and moves out to the calling function
 }
+
+fn smart_scope() {
+    let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+    println!("{} and {}", r1, r2);
+    // variables r1 and r2 will not be used after this point
+
+    let r3 = &mut s; // no problem
+    println!("{}", r3);
+}
+
+fn change(s: &mut String) {
+    s.push_str(", world");
+}
+
+fn calculate_length(s: &String) -> usize {
+    /*
+    &s1 syntax lets us create a reference that refers to the 
+    value of s1 but does not own it. Because it does not own it, 
+    the value it points to will not be dropped when the reference stops being used. */
+    s.len()
+}
