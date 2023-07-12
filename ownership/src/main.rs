@@ -69,3 +69,38 @@ fn calculate_length(s: &String) -> usize {
     the value it points to will not be dropped when the reference stops being used. */
     s.len()
 }
+
+
+/*
+fn dangle() -> &String{
+    let s = String::from("hello");
+    return &s
+}
+*/
+
+fn first_word(s: &String) -> usize {
+    //We’re returning a usize on its own, but it’s only a meaningful number in the context of the &String
+    //Having to worry about the index in word getting out of sync with the data in s is tedious
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+    s.len()
+}
+
+// Slices let you reference a contiguous sequence of elements in a collection rather 
+// than the whole collection. A slice is a kind of reference, so it does not have ownership.
+//If we have a String, we can pass a slice of the String or a reference to the String
+fn first_word_slice(s: &str) -> &str {
+    //We’re returning a usize on its own, but it’s only a meaningful number in the context of the &String
+    //Having to worry about the index in word getting out of sync with the data in s is tedious
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+    return &s[..]
+}
