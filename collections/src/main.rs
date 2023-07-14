@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 #[derive(Debug)]
 enum Cell{
     Int(i32),
@@ -28,7 +30,8 @@ fn main() {
         Cell::Float(3.14),
     ];
     dbg!(row);
-    string();
+    //string();
+    map();
 }
 
 fn string() {
@@ -44,5 +47,28 @@ fn string() {
     for b in "Зд".bytes() {
         println!("{b}");
     }
+}
 
+fn map() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    let team = String::from("Blue");
+    scores.get(&team).copied().unwrap_or(0);
+    for (k,v) in &scores {
+        println!("{k}: {v}");
+    }
+    // overwrite
+    scores.insert(String::from("Blue"), 20);
+    // adding k-v pair if key not present
+    scores.entry(String::from("Yellow")).or_insert(0);
+    scores.entry(String::from("Green")).or_insert(100);
+    println!("{:?}", scores);
+
+    let mut map = HashMap::new();
+    for word in "what the actual meaning is".split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", map);
 }
