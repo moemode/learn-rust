@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "pkgs-bin-crate"
+name = "lifetimes"
 version = "0.1.0"
